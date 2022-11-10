@@ -1,18 +1,19 @@
-<?php
+import fs from 'fs';
+import path from 'path';
 
-namespace Differ\Differ;
-
-//Головная функция дифа
-function genDiff(string $pathToFile1, string $pathToFile2, string $outFormat = 'stylish'): array | bool | string | null
+// Головная функция дифа
+export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish')
 {
-    $arr1 = getAssocArrayFromFile($pathToFile1);
+    /*$arr1 = getAssocArrayFromFile($pathToFile1);
     $arr2 = getAssocArrayFromFile($pathToFile2);
     $resultDiffArr = genDiffFromArrays($arr1, $arr2);
-    return resultArrayToResultString($resultDiffArr, $outFormat);
+    return resultArrayToResultString($resultDiffArr, $outFormat);*/
+
+    return pathToFile1 + pathToFile2 + outFormat;
 }
 
 //Генерируем результирующий массив отличий 2-ух массивов
-function genDiffFromArrays(array $arr1, array $arr2): array
+/*function genDiffFromArrays(array $arr1, array $arr2): array
 {
     $mergedAndSortedArrays = mergeAndSortArrays($arr1, $arr2);
     return array_map(function ($nodeData) use ($arr1, $arr2) {
@@ -44,10 +45,10 @@ function genDiffFromArrays(array $arr1, array $arr2): array
             }
         }
     }, $mergedAndSortedArrays);
-}
+}*/
 
 //Складываем массивы в один, сортируем и подготавливаем начальную структуру для дальнейшего поиска отличий
-function mergeAndSortArrays(array $arr1, array $arr2): array
+/*function mergeAndSortArrays(array $arr1, array $arr2): array
 {
     $merged = $arr2 + $arr1;
     $reduced = array_map(
@@ -57,4 +58,4 @@ function mergeAndSortArrays(array $arr1, array $arr2): array
     );
     $sorted = array_values(collect($reduced)->sort()->values()->all());
     return $sorted;
-}
+}*/

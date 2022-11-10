@@ -40,14 +40,14 @@
 
 <p>Пример использования:</p>
 <pre class="hljs"><code class="shell"><span style="color: #999988;font-style: italic"># формат plain</span>
-<span style="color: #008080">$ </span>gendiff <span style="color: #000080">--format</span> plain path/to/file.yml another/path/file.json
+<span style="color: #008080">$ </span>gendiff.js <span style="color: #000080">--format</span> plain path/to/file.yml another/path/file.json
 
 Property <span style="color: #d14">'common.follow'</span> was added with value: <span style="color: #0086B3">false
 </span>Property <span style="color: #d14">'group1.baz'</span> was updated. From <span style="color: #d14">'bas'</span> to <span style="color: #d14">'bars'</span>
 Property <span style="color: #d14">'group2'</span> was removed
 
 <span style="color: #999988;font-style: italic"># формат stylish</span>
-<span style="color: #008080">$ </span>gendiff filepath1.json filepath2.json
+<span style="color: #008080">$ </span>gendiff.js filepath1.json filepath2.json
 
 <span style="color: #000000;font-weight: bold">{</span>
 + follow: <span style="color: #0086B3">false
