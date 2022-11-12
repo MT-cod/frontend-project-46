@@ -1,22 +1,42 @@
 import fs from 'fs';
 import path from 'path';
+import _ from 'lodash';
 
-// Головная функция дифа
-export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish')
-{
-    /*$arr1 = getAssocArrayFromFile($pathToFile1);
-    $arr2 = getAssocArrayFromFile($pathToFile2);
-    $resultDiffArr = genDiffFromArrays($arr1, $arr2);
-    return resultArrayToResultString($resultDiffArr, $outFormat);*/
+export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish') {
+    const obj1 = JSON.parse(fs.readFileSync(path.resolve(pathToFile1)));
+    const obj2 = JSON.parse(fs.readFileSync(path.resolve(pathToFile2)));
+    const diffCalcResult = genDiffFromObjs(obj1, obj2);
 
-    return pathToFile1 + pathToFile2 + outFormat;
+    //return resultArrayToResultString($resultDiffArr, $outFormat);
+    return diffCalcResult;
 }
 
-//Генерируем результирующий массив отличий 2-ух массивов
-/*function genDiffFromArrays(array $arr1, array $arr2): array
-{
-    $mergedAndSortedArrays = mergeAndSortArrays($arr1, $arr2);
-    return array_map(function ($nodeData) use ($arr1, $arr2) {
+function genDiffFromObjs(obj1, obj2) {
+    const merged = _.merge({...obj1}, obj2);
+    const sortedKeys = _.orderBy(Object.keys(merged));
+
+    const res = sortedKeys.reduce((nodeData, nodeKey) => {
+        if (!_.has(obj1, nodeKey) && _.has(obj2, nodeKey)) {
+            nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' };
+        }
+        if (_.has(obj1, nodeKey) && !_.has(obj2, nodeKey)) {
+            nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' };
+        }
+        if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && _.isEqual(obj1[nodeKey], obj2[nodeKey])) {
+            nodeData[nodeKey] = {nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged'};
+        }
+        if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && !_.isEqual(obj1[nodeKey], obj2[nodeKey])) {
+            if (typeof obj1[nodeKey] === 'object' && typeof obj2[nodeKey] === 'object') {
+                nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' };
+            } else {
+                nodeData[nodeKey] = { nodeKey: nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' };
+            }
+        }
+        return nodeData;
+    }, {});
+
+
+    /*return array_map(function ($nodeData) use ($arr1, $arr2) {
         if (!key_exists($nodeData['nodeKey'], $arr1) && key_exists($nodeData['nodeKey'], $arr2)) {
             return ['nodeKey' => $nodeData['nodeKey'], 'nodeValue' => $nodeData['child'], 'diffStatus' => 'added'];
         } elseif (key_exists($nodeData['nodeKey'], $arr1) && !key_exists($nodeData['nodeKey'], $arr2)) {
@@ -44,18 +64,13 @@ export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish')
                 }
             }
         }
-    }, $mergedAndSortedArrays);
-}*/
+    }, $mergedAndSortedArrays);*/
+    return res;
+}
 
-//Складываем массивы в один, сортируем и подготавливаем начальную структуру для дальнейшего поиска отличий
-/*function mergeAndSortArrays(array $arr1, array $arr2): array
-{
-    $merged = $arr2 + $arr1;
-    $reduced = array_map(
-        fn($nodeKey, $child) => ['nodeKey' => $nodeKey, 'child' => $child],
-        array_keys($merged),
-        array_values($merged)
-    );
-    $sorted = array_values(collect($reduced)->sort()->values()->all());
-    return $sorted;
+/*function mergeAndSortObjs(obj1, obj2) {
+    const res = _.merge({...obj1}, obj2);
+    const sortedKeys = _.orderBy(Object.keys(res));
+
+    return sortedKeys;
 }*/
