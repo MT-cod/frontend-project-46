@@ -1,21 +1,24 @@
-import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
+import getObjFromFile from './Parsers.js'
+import toStylishFormat from "./Formatters/FormatStylish.js";
+import toPlainFormat from "./Formatters/FormatPlain.js";
+import toJsonFormat from "./Formatters/FormatJson.js";
 
-export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish') {
-    const obj1 = JSON.parse(fs.readFileSync(path.resolve(pathToFile1)));
-    const obj2 = JSON.parse(fs.readFileSync(path.resolve(pathToFile2)));
-    const diffCalcResult = genDiffFromObjs(obj1, obj2);
+export default function genDiff(pathToFile1, pathToFile2, outFormat) {
+    const obj1 = getObjFromFile(pathToFile1);
+    const obj2 = getObjFromFile(pathToFile2);
+    const diffMap = genDiffFromObjs(obj1, obj2);
+    //console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
+    const formatters = { stylish: toStylishFormat, plain: toPlainFormat, json: toJsonFormat };
 
-    //return resultArrayToResultString($resultDiffArr, $outFormat);
-    return diffCalcResult;
+    return formatters[outFormat](diffMap);
 }
 
 function genDiffFromObjs(obj1, obj2) {
     const merged = _.merge({...obj1}, obj2);
     const sortedKeys = _.orderBy(Object.keys(merged));
-
-    const res = sortedKeys.reduce((nodeData, nodeKey) => {
+    console.log(typeof sortedKeys);
+    return sortedKeys.reduce((nodeData, nodeKey) => {
         if (!_.has(obj1, nodeKey) && _.has(obj2, nodeKey)) {
             nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' };
         }
@@ -34,43 +37,4 @@ function genDiffFromObjs(obj1, obj2) {
         }
         return nodeData;
     }, {});
-
-
-    /*return array_map(function ($nodeData) use ($arr1, $arr2) {
-        if (!key_exists($nodeData['nodeKey'], $arr1) && key_exists($nodeData['nodeKey'], $arr2)) {
-            return ['nodeKey' => $nodeData['nodeKey'], 'nodeValue' => $nodeData['child'], 'diffStatus' => 'added'];
-        } elseif (key_exists($nodeData['nodeKey'], $arr1) && !key_exists($nodeData['nodeKey'], $arr2)) {
-            return ['nodeKey' => $nodeData['nodeKey'], 'nodeValue' => $nodeData['child'], 'diffStatus' => 'deleted'];
-        } else {
-            if ($arr1[$nodeData['nodeKey']] === $arr2[$nodeData['nodeKey']]) {
-                return [
-                    'nodeKey' => $nodeData['nodeKey'],
-                    'nodeValue' => $nodeData['child'],
-                    'diffStatus' => 'unchanged'
-                ];
-            } else {
-                if (is_array($arr1[$nodeData['nodeKey']]) && is_array($arr2[$nodeData['nodeKey']])) {
-                    return [
-                        'nodeKey' => $nodeData['nodeKey'],
-                        'child' => genDiffFromArrays($arr1[$nodeData['nodeKey']], $arr2[$nodeData['nodeKey']])
-                    ];
-                } else {
-                    return [
-                        'nodeKey' => $nodeData['nodeKey'],
-                        'nodeValueOld' => $arr1[$nodeData['nodeKey']],
-                        'nodeValueNew' => $arr2[$nodeData['nodeKey']],
-                        'diffStatus' => 'updated'
-                    ];
-                }
-            }
-        }
-    }, $mergedAndSortedArrays);*/
-    return res;
 }
-
-/*function mergeAndSortObjs(obj1, obj2) {
-    const res = _.merge({...obj1}, obj2);
-    const sortedKeys = _.orderBy(Object.keys(res));
-
-    return sortedKeys;
-}*/

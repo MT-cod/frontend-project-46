@@ -1,12 +1,5 @@
-<?php
-
-namespace Differ\Differ;
-
-use function PHPUnit\Framework\isEmpty;
-
-function plainFormattingOfDiffResult(array $resultDiffArr, string $parents = ''): string
-{
-    $plainResultArr = array_map(function ($node) use ($parents): string {
+export default function toPlainFormat(diffMap, parents = '') {
+    /*$plainResultArr = array_map(function ($node) use ($parents): string {
         if (array_key_exists('diffStatus', $node)) {
             switch ($node['diffStatus']) {
                 case 'updated':
@@ -26,15 +19,15 @@ function plainFormattingOfDiffResult(array $resultDiffArr, string $parents = '')
         return '';
     }, $resultDiffArr);
     $filteredPlainResultArr = array_filter($plainResultArr, fn($row) => $row != '');
-    return implode("\n", $filteredPlainResultArr);
+    return implode("\n", $filteredPlainResultArr);*/
 }
 
-function simplOrCompVal(mixed $value): mixed
+/*function simplOrCompVal(value)
 {
     return (is_array($value)) ? '[complex value]' : ifBoolOr0ToString($value);
 }
 
-function ifBoolOr0ToString(mixed $value): mixed
+function ifBoolOr0ToString(value)
 {
     if ($value === true) {
         return 'true';
@@ -46,4 +39,4 @@ function ifBoolOr0ToString(mixed $value): mixed
         return 0;
     }
     return "'$value'";
-}
+}*/
