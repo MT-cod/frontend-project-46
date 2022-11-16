@@ -11,30 +11,30 @@ export default function genDiff(pathToFile1, pathToFile2, outFormat) {
     //console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
     const formatters = { stylish: toStylishFormat, plain: toPlainFormat, json: toJsonFormat };
 
-    return formatters[outFormat](diffMap);
+    return formatters[outFormat](Object.values(diffMap));
 }
 
 function genDiffFromObjs(obj1, obj2) {
     const merged = _.merge({...obj1}, obj2);
     const sortedKeys = _.orderBy(Object.keys(merged));
-    console.log(typeof sortedKeys);
+
     return sortedKeys.reduce((nodeData, nodeKey) => {
         if (!_.has(obj1, nodeKey) && _.has(obj2, nodeKey)) {
-            nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' };
+            nodeData.push({ nodeKey: nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' });
         }
         if (_.has(obj1, nodeKey) && !_.has(obj2, nodeKey)) {
-            nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' };
+            nodeData.push({ nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' });
         }
         if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && _.isEqual(obj1[nodeKey], obj2[nodeKey])) {
-            nodeData[nodeKey] = {nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged'};
+            nodeData.push({nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged'});
         }
         if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && !_.isEqual(obj1[nodeKey], obj2[nodeKey])) {
             if (typeof obj1[nodeKey] === 'object' && typeof obj2[nodeKey] === 'object') {
-                nodeData[nodeKey] = { nodeKey: nodeKey, nodeValue: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' };
+                nodeData.push({ nodeKey: nodeKey, nodeChild: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' });
             } else {
-                nodeData[nodeKey] = { nodeKey: nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' };
+                nodeData.push({ nodeKey: nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' });
             }
         }
         return nodeData;
-    }, {});
+    }, []);
 }
