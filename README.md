@@ -1,5 +1,5 @@
 ## Учебный проект «Вычислитель отличий» в рамках курса Hexlet (PHP-разработчик)
-[![CI](https://github.com/MT-cod/frontend-project-46/workflows/CI/badge.svg)](https://github.com/MT-cod/frontend-project-46/actions)
+[![CI](https://github.com/MT-cod/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/MT-cod/frontend-project-46/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/43ddfa8c7836c62787c1/maintainability)](https://codeclimate.com/github/MT-cod/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/43ddfa8c7836c62787c1/test_coverage)](https://codeclimate.com/github/MT-cod/frontend-project-46/test_coverage)
 
