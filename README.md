@@ -1,11 +1,7 @@
 ## Учебный проект «Вычислитель отличий» в рамках курса Hexlet (PHP-разработчик)
-[![Actions Status](https://github.com/MT-cod/php-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/MT-cod/php-project-lvl2/actions)
-[![PHP%20CI](https://github.com/MT-cod/php-project-lvl2/workflows/PHP%20CI/badge.svg)](https://github.com/MT-cod/php-project-lvl2/actions)
-[![Latest Stable Version](https://img.shields.io/packagist/v/mt-cod/php-project-lvl2.svg)](https://packagist.org/packages/mt-cod/php-project-lvl2)
-<br>
-[![Code Climate](https://codeclimate.com/github/MT-cod/php-project-lvl2/badges/gpa.svg)](https://codeclimate.com/github/MT-cod/php-project-lvl2)
-[![Issue Count](https://codeclimate.com/github/MT-cod/php-project-lvl2/badges/issue_count.svg)](https://codeclimate.com/github/MT-cod/php-project-lvl2/issues)
-[![Test Coverage](https://codeclimate.com/github/MT-cod/php-project-lvl2/badges/coverage.svg)](https://codeclimate.com/github/MT-cod/php-project-lvl2/coverage)
+[![CI](https://github.com/MT-cod/frontend-project-46/workflows/CI/badge.svg)](https://github.com/MT-cod/frontend-project-46/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/43ddfa8c7836c62787c1/maintainability)](https://codeclimate.com/github/MT-cod/frontend-project-46/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/43ddfa8c7836c62787c1/test_coverage)](https://codeclimate.com/github/MT-cod/frontend-project-46/test_coverage)
 
 
 <h2>Цель</h2>
