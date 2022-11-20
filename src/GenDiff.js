@@ -14,7 +14,7 @@ export default function genDiff(pathToFile1, pathToFile2, outFormat) {
     return formatters[outFormat](Object.values(diffMap));
 }
 
-function genDiffFromObjs(obj1, obj2) {
+export function genDiffFromObjs(obj1, obj2) {
     const merged = _.merge({...obj1}, obj2);
     const sortedKeys = _.orderBy(Object.keys(merged));
 
