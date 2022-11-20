@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">65.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>15/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">65.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>15/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,35 +85,29 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import _ from "lodash";
-&nbsp;
-export default function toStylishFormat(diffMap) {
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">export default function toStylishFormat(diffMap) {
   return diffMap.reduce((nodeData, node) =&gt; {
     switch (node.diffStatus) {
       case 'updated':
@@ -121,15 +115,15 @@ export default function toStylishFormat(diffMap) {
 <span class="cstat-no" title="statement not covered" >          nodeData[node.nodeKey] = toStylishFormat(node.nodeChild);</span>
 <span class="cstat-no" title="statement not covered" >          break;</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-        nodeData['- ' + node.nodeKey] = node.nodeValueOld;
-        nodeData['+ ' + node.nodeKey] = node.nodeValueNew;
-        break;
+<span class="cstat-no" title="statement not covered" >        nodeData['- ' + node.nodeKey] = node.nodeValueOld;</span>
+<span class="cstat-no" title="statement not covered" >        nodeData['+ ' + node.nodeKey] = node.nodeValueNew;</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
       case 'deleted':
         nodeData['- ' + node.nodeKey] = node.nodeValue;
         break;
-      case 'added':
-        nodeData['+ ' + node.nodeKey] = node.nodeValue;
-        break;
+<span class="branch-0 cbranch-no" title="branch not covered" >      case 'added':</span>
+<span class="cstat-no" title="statement not covered" >        nodeData['+ ' + node.nodeKey] = node.nodeValue;</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
       case 'unchanged':
         nodeData['  ' + node.nodeKey] = node.nodeValue;
     }
@@ -142,7 +136,7 @@ export default function toStylishFormat(diffMap) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-20T21:24:40.412Z
+                at 2022-11-20T21:34:40.155Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
