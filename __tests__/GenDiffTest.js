@@ -24,7 +24,7 @@ const resGenDiff = {
   "+ timeout": 20,
   "+ verbose": true
 };
-const resGenDiffFromObjs = [
+export const resGenDiffFromObjs = [
   {
     "nodeKey": "follow",
     "nodeValue": false,

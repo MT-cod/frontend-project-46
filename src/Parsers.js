@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
 
 export default function getObjFromFile(pathToFile) {
     const pathToFileStr = path.resolve(pathToFile);
@@ -9,6 +10,7 @@ export default function getObjFromFile(pathToFile) {
         case '.json':
             return JSON.parse(fs.readFileSync(pathToFileStr));
         case '.yaml':
-            return JSON.parse(fs.readFileSync(pathToFileStr));
+        case '.yml':
+            return yaml.load(fs.readFileSync(pathToFileStr));
     }
 }

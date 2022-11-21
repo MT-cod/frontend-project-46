@@ -1,5 +1,7 @@
 import { test, expect } from '@jest/globals';
 import toStylishFormat from '../src/Formatters/FormatStylish.js'
+import {resGenDiffFromObjs as diffMap} from "./GenDiffTest.js";
+
 
 const resToStylishFormat = {
   "- follow": false,
@@ -9,34 +11,6 @@ const resToStylishFormat = {
   "+ timeout": 20,
   "+ verbose": true
 };
-const diffMap = [
-  {
-    "nodeKey": "follow",
-    "nodeValue": false,
-    "diffStatus": "deleted"
-  },
-  {
-    "nodeKey": "host",
-    "nodeValue": "hexlet.io",
-    "diffStatus": "unchanged"
-  },
-  {
-    "nodeKey": "proxy",
-    "nodeValue": "123.234.53.22",
-    "diffStatus": "deleted"
-  },
-  {
-    "nodeKey": "timeout",
-    "nodeValueOld": 50,
-    "nodeValueNew": 20,
-    "diffStatus": "updated"
-  },
-  {
-    "nodeKey": "verbose",
-    "nodeValue": true,
-    "diffStatus": "added"
-  }
-];
 
 test('toStylishFormat()', () => {
   //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
