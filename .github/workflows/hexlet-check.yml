@@ -15,18 +15,33 @@ on:
     tags:
       - '**'
 
+env:
+  CI: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v2
-
-      - name: Hexlet project check
-        uses: hexlet/project-action@release
+      - name: Use Node.js ${{ matrix.node-version }}
+        # Configures the node version used on GitHub-hosted runners
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v2
+        # The Node.js version to configure
         with:
-          hexlet-id: ${{ secrets.HEXLET_ID }}
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: make install
       #- run: make lint
       - run: make test
+      #- name: Hexlet project check
+      #  uses: hexlet/project-action@release
+      #  with:
+      #    hexlet-id: ${{ secrets.HEXLET_ID }}
       - name: Test & publish code coverage
       #   # Publish code coverage on Code Climate
       #   # https://github.com/paambaati/codeclimate-action
@@ -37,4 +52,3 @@ jobs:
         with:
            coverageCommand: make test-coverage
            debug: true
-
