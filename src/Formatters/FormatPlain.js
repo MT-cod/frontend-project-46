@@ -1,5 +1,5 @@
 export default function toPlainFormat(diffMap, parents = '') {
-    /*$plainResultArr = array_map(function ($node) use ($parents): string {
+    $plainResultArr = array_map(function ($node) use ($parents): string {
         if (array_key_exists('diffStatus', $node)) {
             switch ($node['diffStatus']) {
                 case 'updated':
@@ -19,10 +19,10 @@ export default function toPlainFormat(diffMap, parents = '') {
         return '';
     }, $resultDiffArr);
     $filteredPlainResultArr = array_filter($plainResultArr, fn($row) => $row != '');
-    return implode("\n", $filteredPlainResultArr);*/
+    return implode("\n", $filteredPlainResultArr);
 }
 
-/*function simplOrCompVal(value)
+function simplOrCompVal(value)
 {
     return (is_array($value)) ? '[complex value]' : ifBoolOr0ToString($value);
 }
@@ -39,4 +39,4 @@ function ifBoolOr0ToString(value)
         return 0;
     }
     return "'$value'";
-}*/
+}

@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
-import toStylishFormat from '../src/Formatters/FormatStylish.js'
 import {resGenDiffFromObjs as diffMap} from "./GenDiffTest.js";
+import toFormat from "../src/Formatters/index.js";
 
 export const resToStylishFormat = {
   "common": {
@@ -40,13 +40,24 @@ export const resToStylishFormat = {
     "fee": 100500
   }
 };
+export const resToPlainFormat = "Property 'common.follow' was added with value: false\n" +
+    "Property 'common.setting2' was removed\n" +
+    "Property 'common.setting3' was updated. From true to null\n" +
+    "Property 'common.setting4' was added with value: 'blah blah'\n" +
+    "Property 'common.setting5' was added with value: [complex value]\n" +
+    "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'\n" +
+    "Property 'common.setting6.ops' was added with value: 'vops'\n" +
+    "Property 'group1.baz' was updated. From 'bas' to 'bars'\n" +
+    "Property 'group1.nest' was updated. From [complex value] to 'str'\n" +
+    "Property 'group2' was removed\n" +
+    "Property 'group3' was added with value: [complex value]";
 
 test('toStylishFormat()', () => {
   //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
-  expect(toStylishFormat(diffMap)).toMatchObject(resToStylishFormat);
+  expect(toFormat(Object.values(diffMap), 'stylish')).toMatchObject(resToStylishFormat);
 });
 
-/*test('genDiffFromObjs()', () => {
+test('toPlainFormat()', () => {
   //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
-  expect(genDiffFromObjs(file1, file2)).toMatchObject(resGenDiffFromObjs);
-});*/
+  expect(toFormat(Object.values(diffMap), 'plain')).toMatchObject(resToStylishFormat);
+});

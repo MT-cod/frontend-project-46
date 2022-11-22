@@ -1,17 +1,14 @@
 import _ from 'lodash';
 import getObjFromFile from './Parsers.js'
-import toStylishFormat from "./Formatters/FormatStylish.js";
-import toPlainFormat from "./Formatters/FormatPlain.js";
-import toJsonFormat from "./Formatters/FormatJson.js";
+import toFormat from "./Formatters/index.js";
 
 export default function genDiff(pathToFile1, pathToFile2, outFormat) {
     const obj1 = getObjFromFile(pathToFile1);
     const obj2 = getObjFromFile(pathToFile2);
     const diffMap = genDiffFromObjs(obj1, obj2);
     //console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
-    const formatters = { stylish: toStylishFormat, plain: toPlainFormat, json: toJsonFormat };
 
-    return formatters[outFormat](Object.values(diffMap));
+    return toFormat(Object.values(diffMap), outFormat);
 }
 
 export function genDiffFromObjs(obj1, obj2) {
