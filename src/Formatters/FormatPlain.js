@@ -1,33 +1,35 @@
+import _ from "lodash";
+
 export default function toPlainFormat(diffMap, parents = '') {
-    $plainResultArr = array_map(function ($node) use ($parents): string {
-        if (array_key_exists('diffStatus', $node)) {
-            switch ($node['diffStatus']) {
-                case 'updated':
-                    $Old = simplOrCompVal($node['nodeValueOld']);
-                    $New = simplOrCompVal($node['nodeValueNew']);
-                    return "Property '$parents" . $node['nodeKey'] . "' was updated. From $Old to $New";
-                case 'deleted':
-                    return "Property '$parents" . $node['nodeKey'] . "' was removed";
-                case 'added':
-                    $nodeValue = simplOrCompVal($node['nodeValue']);
-                    return "Property '$parents" . $node['nodeKey'] . "' was added with value: $nodeValue";
-            }
+    return diffMap.reduce((res, node) => {
+        if (_.has(node, 'nodeChild')) {
+            const parentsForIter = parents + node['nodeKey'] + '.';
+            res = res + '\n' + toPlainFormat(node['child'], parentsForIter);
         } else {
-            $parentsForIter = $parents . $node['nodeKey'] . '.';
-            return plainFormattingOfDiffResult($node['child'], $parentsForIter);
+            switch (node.diffStatus) {
+                case 'updated':
+                    const Old = simplOrCompVal(node['nodeValueOld']);
+                    const New = simplOrCompVal(node['nodeValueNew']);
+                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was updated. From ${Old} to ${New}`;
+                    break;
+                case 'deleted':
+                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was removed`;
+                    break;
+                case 'added':
+                    const nodeValue = simplOrCompVal(node['nodeValue']);
+                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was added with value: ${nodeValue}`;
+            }
         }
-        return '';
-    }, $resultDiffArr);
-    $filteredPlainResultArr = array_filter($plainResultArr, fn($row) => $row != '');
-    return implode("\n", $filteredPlainResultArr);
+        return res;
+    }, {});
+    //return implode("\n", $filteredPlainResultArr);
 }
 
-function simplOrCompVal(value)
-{
-    return (is_array($value)) ? '[complex value]' : ifBoolOr0ToString($value);
+function simplOrCompVal(val) {
+    return _.isObject(val) ? '[complex value]' : val;
 }
 
-function ifBoolOr0ToString(value)
+/*function ifBoolOr0ToString(value)
 {
     if ($value === true) {
         return 'true';
@@ -39,4 +41,4 @@ function ifBoolOr0ToString(value)
         return 0;
     }
     return "'$value'";
-}
+}*/

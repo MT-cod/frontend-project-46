@@ -1,11 +1,11 @@
 import _ from "lodash";
 
 export default function toStylishFormat(diffMap) {
-  return diffMap.reduce((nodeData, node) => {
+  return JSON.stringify(diffMap.reduce((nodeData, node) => {
     switch (node.diffStatus) {
       case 'updated':
         if (_.has(node, 'nodeChild')) {
-          nodeData[node.nodeKey] = toStylishFormat(node.nodeChild);
+          nodeData[node.nodeKey] = JSON.stringify(toStylishFormat(node.nodeChild), null, '\t');
           break;
         }
         nodeData['- ' + node.nodeKey] = node.nodeValueOld;
@@ -21,5 +21,5 @@ export default function toStylishFormat(diffMap) {
         nodeData['  ' + node.nodeKey] = node.nodeValue;
     }
     return nodeData;
-  }, {});
+  }, {}), null, '\t');
 }

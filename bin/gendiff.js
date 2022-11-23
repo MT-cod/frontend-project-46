@@ -13,8 +13,7 @@ program
     .argument('<filepath2>')
     .option('-f, --format  <type>', 'output format', 'stylish')
     .action(function() {
-      //console.log('1' + JSON.stringify(this.args[0]));
-      console.log(JSON.stringify(genDiff(this.args[0], this.args[1], this.opts().format), null, '\t'));
+      console.log(genDiff(this.args[0], this.args[1], this.opts().format));
     });
 
 program.parse();

@@ -64,86 +64,121 @@ export const file2 = {
       }
     };
 export const resGenDiffFromObjs = [
+  {
+    "nodeKey": "common",
+    "nodeChild": [
       {
-        "nodeKey": "common",
-        "nodeChild": [
-          {
-            "nodeKey": "follow",
-            "nodeValue": false,
-            "diffStatus": "unchanged"
-          },
-          {
-            "nodeKey": "setting1",
-            "nodeValue": "Value 1",
-            "diffStatus": "unchanged"
-          },
-          {
-            "nodeKey": "setting2",
-            "nodeValue": 200,
-            "diffStatus": "deleted"
-          },
-          {
-            "nodeKey": "setting3",
-            "nodeValue": null,
-            "diffStatus": "unchanged"
-          },
-          {
-            "nodeKey": "setting4",
-            "nodeValue": "blah blah",
-            "diffStatus": "unchanged"
-          },
-          {
-            "nodeKey": "setting5",
-            "nodeValue": {
-              "key5": "value5"
-            },
-            "diffStatus": "unchanged"
-          },
-          {
-            "nodeKey": "setting6",
-            "nodeValue": {
-              "key": "value",
-              "doge": {
-                "wow": "so much"
-              },
-              "ops": "vops"
-            },
-            "diffStatus": "unchanged"
-          }
-        ],
-        "diffStatus": "updated"
+        "nodeKey": "follow",
+        "nodeValue": false,
+        "diffStatus": "added"
       },
       {
-        "nodeKey": "group1",
-        "nodeValue": {
-          "baz": "bars",
-          "foo": "bar",
-          "nest": "str"
-        },
+        "nodeKey": "setting1",
+        "nodeValue": "Value 1",
         "diffStatus": "unchanged"
       },
       {
-        "nodeKey": "group2",
-        "nodeValue": {
-          "abc": 12345,
-          "deep": {
-            "id": 45
-          }
-        },
+        "nodeKey": "setting2",
+        "nodeValue": 200,
         "diffStatus": "deleted"
       },
       {
-        "nodeKey": "group3",
+        "nodeKey": "setting3",
+        "nodeValueOld": true,
+        "nodeValueNew": null,
+        "diffStatus": "updated"
+      },
+      {
+        "nodeKey": "setting4",
+        "nodeValue": "blah blah",
+        "diffStatus": "added"
+      },
+      {
+        "nodeKey": "setting5",
         "nodeValue": {
-          "deep": {
-            "id": {
-              "number": 45
-            }
-          },
-          "fee": 100500
+          "key5": "value5"
         },
         "diffStatus": "added"
-      }];
+      },
+      {
+        "nodeKey": "setting6",
+        "nodeChild": [
+          {
+            "nodeKey": "doge",
+            "nodeChild": [
+              {
+                "nodeKey": "wow",
+                "nodeValueOld": "",
+                "nodeValueNew": "so much",
+                "diffStatus": "updated"
+              }
+            ],
+            "diffStatus": "updated"
+          },
+          {
+            "nodeKey": "key",
+            "nodeValue": "value",
+            "diffStatus": "unchanged"
+          },
+          {
+            "nodeKey": "ops",
+            "nodeValue": "vops",
+            "diffStatus": "added"
+          }
+        ],
+        "diffStatus": "updated"
+      }
+    ],
+    "diffStatus": "updated"
+  },
+  {
+    "nodeKey": "group1",
+    "nodeChild": [
+      {
+        "nodeKey": "baz",
+        "nodeValueOld": "bas",
+        "nodeValueNew": "bars",
+        "diffStatus": "updated"
+      },
+      {
+        "nodeKey": "foo",
+        "nodeValue": "bar",
+        "diffStatus": "unchanged"
+      },
+      {
+        "nodeKey": "nest",
+        "nodeValueOld": {
+          "key": "value"
+        },
+        "nodeValueNew": "str",
+        "diffStatus": "updated"
+      }
+    ],
+    "diffStatus": "updated"
+  },
+  {
+    "nodeKey": "group2",
+    "nodeValue": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    },
+    "diffStatus": "deleted"
+  },
+  {
+    "nodeKey": "group3",
+    "nodeValue": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    },
+    "diffStatus": "added"
+  }
+];
 
 test('genDiff()', () => {
   //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
