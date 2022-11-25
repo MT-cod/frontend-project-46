@@ -38,10 +38,6 @@ jobs:
       - run: make install
       - run: make lint
       - run: make test
-      #- name: Hexlet project check
-      #  uses: hexlet/project-action@release
-      #  with:
-      #    hexlet-id: ${{ secrets.HEXLET_ID }}
       - name: Test & publish code coverage
       #   # Publish code coverage on Code Climate
       #   # https://github.com/paambaati/codeclimate-action
@@ -52,3 +48,7 @@ jobs:
         with:
            coverageCommand: make test-coverage
            debug: true
+      - name: Hexlet project check
+        uses: hexlet/project-action@release
+        with:
+          hexlet-id: ${{ secrets.HEXLET_ID }}
