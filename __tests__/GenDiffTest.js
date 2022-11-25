@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { test, expect } from '@jest/globals';
 import genDiff, { genDiffFromObjs } from '../src/GenDiff.js';
 import {resToStylishFormat as resGenDiff} from "./FormattersTest.js";

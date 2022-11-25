@@ -8,16 +8,16 @@ export default function toPlainFormat(diffMap, parents = '') {
         } else {
             switch (node.diffStatus) {
                 case 'updated':
-                    const Old = simplOrCompVal(ifStrToApostrofs(node.nodeValueOld));
-                    const New = simplOrCompVal(ifStrToApostrofs(node.nodeValueNew));
-                    res.push(`Property '${parents}${node.nodeKey}' was updated. From ${Old} to ${New}`);
+                    res.push(`Property '${parents}${node.nodeKey}' was updated. ` +
+                        `From ${simplOrCompVal(ifStrToApostrofs(node.nodeValueOld))} ` +
+                        `to ${simplOrCompVal(ifStrToApostrofs(node.nodeValueNew))}`);
                     break;
                 case 'deleted':
                     res.push(`Property '${parents}${node.nodeKey}' was removed`);
                     break;
                 case 'added':
-                    const nodeValue = simplOrCompVal(ifStrToApostrofs(node.nodeValue));
-                    res.push(`Property '${parents}${node.nodeKey}' was added with value: ${nodeValue}`);
+                    res.push(`Property '${parents}${node.nodeKey}' was added with value:` +
+                        ` ${simplOrCompVal(ifStrToApostrofs(node.nodeValue))}`);
             }
         }
         return res;
