@@ -27,6 +27,12 @@ jobs:
         node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v2
+
+      - name: Hexlet project check
+        uses: hexlet/project-action@release
+        with:
+          hexlet-id: ${{ secrets.HEXLET_ID }}
+
       - name: Use Node.js ${{ matrix.node-version }}
         # Configures the node version used on GitHub-hosted runners
         # https://github.com/actions/setup-node
@@ -48,7 +54,3 @@ jobs:
         with:
            coverageCommand: make test-coverage
            debug: true
-      - name: Hexlet project check
-        uses: hexlet/project-action@release
-        with:
-          hexlet-id: ${{ secrets.HEXLET_ID }}
