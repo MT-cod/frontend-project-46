@@ -12,13 +12,8 @@ export default function genDiff(pathToFile1, pathToFile2, outFormat) {
 }
 
 export function genDiffFromObjs(obj1, obj2) {
-    /*console.log('obj1===' + JSON.stringify(obj1, null, '\t'));
-    console.log('obj2===' + JSON.stringify(obj2, null, '\t'));*/
     const merged = _.merge(_.cloneDeep(obj1), _.cloneDeep(obj2));
-    /*console.log('obj1===' + JSON.stringify(obj1, null, '\t'));
-    console.log('obj2===' + JSON.stringify(obj2, null, '\t'));*/
     const sortedKeys = _.orderBy(Object.keys(merged));
-    //console.log('merged===' + JSON.stringify(merged, null, '\t'));
 
     return sortedKeys.reduce((nodeData, nodeKey) => {
         if (!_.has(obj1, nodeKey) && _.has(obj2, nodeKey)) {
@@ -28,9 +23,6 @@ export function genDiffFromObjs(obj1, obj2) {
             nodeData.push({ nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' });
         }
         if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && _.isEqual(obj1[nodeKey], obj2[nodeKey])) {
-            /*console.log('obj1[nodeKey]=' + obj1[nodeKey]);
-            console.log('obj2[nodeKey]=' + obj2[nodeKey]);
-            console.log('_.isEqual=' + _.isEqual(obj1[nodeKey], obj2[nodeKey]));*/
             nodeData.push({nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged'});
         }
         if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && !_.isEqual(obj1[nodeKey], obj2[nodeKey])) {

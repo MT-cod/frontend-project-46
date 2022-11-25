@@ -3,42 +3,32 @@ import _ from "lodash";
 export default function toPlainFormat(diffMap, parents = '') {
     return diffMap.reduce((res, node) => {
         if (_.has(node, 'nodeChild')) {
-            const parentsForIter = parents + node['nodeKey'] + '.';
-            res = res + '\n' + toPlainFormat(node['child'], parentsForIter);
+            const parentsForIter = parents + node.nodeKey + '.';
+            res.push(toPlainFormat(node.nodeChild, parentsForIter));
         } else {
             switch (node.diffStatus) {
                 case 'updated':
-                    const Old = simplOrCompVal(node['nodeValueOld']);
-                    const New = simplOrCompVal(node['nodeValueNew']);
-                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was updated. From ${Old} to ${New}`;
+                    const Old = simplOrCompVal(ifStrToApostrofs(node.nodeValueOld));
+                    const New = simplOrCompVal(ifStrToApostrofs(node.nodeValueNew));
+                    res.push(`Property '${parents}${node.nodeKey}' was updated. From ${Old} to ${New}`);
                     break;
                 case 'deleted':
-                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was removed`;
+                    res.push(`Property '${parents}${node.nodeKey}' was removed`);
                     break;
                 case 'added':
-                    const nodeValue = simplOrCompVal(node['nodeValue']);
-                    res = res + '\n' + `Property '${parents}${node['nodeKey']}' was added with value: ${nodeValue}`;
+                    const nodeValue = simplOrCompVal(ifStrToApostrofs(node.nodeValue));
+                    res.push(`Property '${parents}${node.nodeKey}' was added with value: ${nodeValue}`);
             }
         }
         return res;
-    }, {});
-    //return implode("\n", $filteredPlainResultArr);
+    }, []).join('\n');
 }
 
 function simplOrCompVal(val) {
     return _.isObject(val) ? '[complex value]' : val;
 }
 
-/*function ifBoolOr0ToString(value)
+function ifStrToApostrofs(val)
 {
-    if ($value === true) {
-        return 'true';
-    } elseif ($value === false) {
-        return 'false';
-    } elseif ($value === null) {
-        return 'null';
-    } elseif ($value === 0) {
-        return 0;
-    }
-    return "'$value'";
-}*/
+    return typeof val === 'string' ? `'${val}'` : val;
+}

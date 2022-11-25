@@ -182,7 +182,7 @@ export const resGenDiffFromObjs = [
 
 test('genDiff()', () => {
   //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
-  expect(genDiff(pathToFile1, pathToFile2, format)).toMatchObject(resGenDiff);
+  expect(genDiff(pathToFile1, pathToFile2, format)).toEqual(resGenDiff);
 });
 
 test('genDiffFromObjs()', () => {
