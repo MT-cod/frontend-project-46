@@ -2,7 +2,6 @@
 
 import genDiff from '../src/GenDiff.js';
 
-//const { Command } = require('commander');
 import { Command } from 'commander';
 const program = new Command();
 

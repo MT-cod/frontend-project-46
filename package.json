@@ -3,9 +3,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Проект Вычислитель отличий",
-  "main": "bin/gendiff.js",
+  "main": "./bin/gendiff.js",
   "bin": {
-    "gendiff": "node bin/gendiff.js"
+    "gendiff": "node ./bin/gendiff.js"
   },
   "scripts": {
     "test": "npx jest"
