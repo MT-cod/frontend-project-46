@@ -3,7 +3,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Проект Вычислитель отличий",
-  "main": "./bin/gendiff.js",
+  "main": "src/GenDiff.js",
   "bin": {
     "gendiff": "node ./bin/gendiff.js"
   },
