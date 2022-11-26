@@ -2,7 +2,7 @@ import _ from 'lodash';
 import getObjFromFile from './Parsers.js'
 import toFormat from "./Formatters/index.js";
 
-export default function genDiff(pathToFile1, pathToFile2, outFormat) {
+export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish') {
     const obj1 = getObjFromFile(pathToFile1);
     const obj2 = getObjFromFile(pathToFile2);
     const diffMap = genDiffFromObjs(obj1, obj2);
