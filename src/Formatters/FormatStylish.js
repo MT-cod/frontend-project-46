@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 export default function toStylishFormat(diffMap) {
-  return JSON.stringify(processing(diffMap), null, '\t');
+  return JSON.stringify(processing(diffMap), null, 2).replace(/"([^"]+)":/g, '$1:');
 }
 
 function processing(diffMap) {
