@@ -36,10 +36,8 @@ function addSpacesIfValIsArr(val) {
       } else {
         res[`  ${key}`] = val[key];
       }
-      //console.log('res===' + JSON.stringify(res, null, '\t'));
       return res;
     }, {});
   }
-  //console.log('val===' + JSON.stringify(val, null, '\t'));
   return val;
 }
