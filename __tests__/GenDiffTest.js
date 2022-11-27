@@ -4,9 +4,9 @@ import fs from 'fs';
 import path from 'path';
 
 const resGenDiff = fs
-    .readFileSync(path.resolve('__tests__/__fixtures__/resToStylishFormat'))
-    .toString()
-    .trim();
+  .readFileSync(path.resolve('__tests__/__fixtures__/resToStylishFormat'))
+  .toString()
+  .trim();
 const pathToFile1 = '__tests__/__fixtures__/recurs_file1.json';
 const pathToFile2 = '__tests__/__fixtures__/recurs_file2.json';
 const format = 'stylish';
