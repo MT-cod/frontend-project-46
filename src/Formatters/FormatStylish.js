@@ -12,18 +12,34 @@ function processing(diffMap) {
           nodeData['  ' + node.nodeKey] = processing(node.nodeChild);
           break;
         }
-        nodeData['- ' + node.nodeKey] = node.nodeValueOld;
-        nodeData['+ ' + node.nodeKey] = node.nodeValueNew;
+        nodeData['- ' + node.nodeKey] = addSpacesIfValIsArr(node.nodeValueOld);
+        nodeData['+ ' + node.nodeKey] = addSpacesIfValIsArr(node.nodeValueNew);
         break;
       case 'deleted':
-        nodeData['- ' + node.nodeKey] = node.nodeValue;
+        nodeData['- ' + node.nodeKey] = addSpacesIfValIsArr(node.nodeValue);
         break;
       case 'added':
-        nodeData['+ ' + node.nodeKey] = node.nodeValue;
+        nodeData['+ ' + node.nodeKey] = addSpacesIfValIsArr(node.nodeValue);
         break;
       case 'unchanged':
-        nodeData['  ' + node.nodeKey] = node.nodeValue;
+        nodeData['  ' + node.nodeKey] = addSpacesIfValIsArr(node.nodeValue);
     }
     return nodeData;
   }, {});
+}
+
+function addSpacesIfValIsArr(val) {
+  if (typeof val === 'object' && val !== null) {
+    return Object.keys(val).reduce((res, key) => {
+      if (typeof val[key] === 'object' && val[key] !== null) {
+        res[`  ${key}`] = addSpacesIfValIsArr(val[key]);
+      } else {
+        res[`  ${key}`] = val[key];
+      }
+      //console.log('res===' + JSON.stringify(res, null, '\t'));
+      return res;
+    }, {});
+  }
+  //console.log('val===' + JSON.stringify(val, null, '\t'));
+  return val;
 }
