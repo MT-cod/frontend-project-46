@@ -1,0 +1,116 @@
+[
+	{
+		"nodeKey": "common",
+		"nodeChild": [
+			{
+				"nodeKey": "follow",
+				"nodeValue": false,
+				"diffStatus": "added"
+			},
+			{
+				"nodeKey": "setting1",
+				"nodeValue": "Value 1",
+				"diffStatus": "unchanged"
+			},
+			{
+				"nodeKey": "setting2",
+				"nodeValue": 200,
+				"diffStatus": "deleted"
+			},
+			{
+				"nodeKey": "setting3",
+				"nodeValueOld": true,
+				"nodeValueNew": null,
+				"diffStatus": "updated"
+			},
+			{
+				"nodeKey": "setting4",
+				"nodeValue": "blah blah",
+				"diffStatus": "added"
+			},
+			{
+				"nodeKey": "setting5",
+				"nodeValue": {
+					"key5": "value5"
+				},
+				"diffStatus": "added"
+			},
+			{
+				"nodeKey": "setting6",
+				"nodeChild": [
+					{
+						"nodeKey": "doge",
+						"nodeChild": [
+							{
+								"nodeKey": "wow",
+								"nodeValueOld": "",
+								"nodeValueNew": "so much",
+								"diffStatus": "updated"
+							}
+						],
+						"diffStatus": "updated"
+					},
+					{
+						"nodeKey": "key",
+						"nodeValue": "value",
+						"diffStatus": "unchanged"
+					},
+					{
+						"nodeKey": "ops",
+						"nodeValue": "vops",
+						"diffStatus": "added"
+					}
+				],
+				"diffStatus": "updated"
+			}
+		],
+		"diffStatus": "updated"
+	},
+	{
+		"nodeKey": "group1",
+		"nodeChild": [
+			{
+				"nodeKey": "baz",
+				"nodeValueOld": "bas",
+				"nodeValueNew": "bars",
+				"diffStatus": "updated"
+			},
+			{
+				"nodeKey": "foo",
+				"nodeValue": "bar",
+				"diffStatus": "unchanged"
+			},
+			{
+				"nodeKey": "nest",
+				"nodeValueOld": {
+					"key": "value"
+				},
+				"nodeValueNew": "str",
+				"diffStatus": "updated"
+			}
+		],
+		"diffStatus": "updated"
+	},
+	{
+		"nodeKey": "group2",
+		"nodeValue": {
+			"abc": 12345,
+			"deep": {
+				"id": 45
+			}
+		},
+		"diffStatus": "deleted"
+	},
+	{
+		"nodeKey": "group3",
+		"nodeValue": {
+			"deep": {
+				"id": {
+					"number": 45
+				}
+			},
+			"fee": 100500
+		},
+		"diffStatus": "added"
+	}
+]
