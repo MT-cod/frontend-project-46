@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 export default function toStylishFormat(diffMap) {
-  return JSON.stringify(processing(diffMap), null, 4).replaceAll(new RegExp("\"|\,", "g"), '');
+  return JSON.stringify(processing(diffMap), null, 3).replaceAll(new RegExp("\"|\,", "g"), '');
 }
 
 function processing(diffMap) {
@@ -9,7 +9,7 @@ function processing(diffMap) {
     switch (node.diffStatus) {
       case 'updated':
         if (_.has(node, 'nodeChild')) {
-          nodeData[node.nodeKey] = processing(node.nodeChild);
+          nodeData['  ' + node.nodeKey] = processing(node.nodeChild);
           break;
         }
         nodeData['- ' + node.nodeKey] = node.nodeValueOld;
