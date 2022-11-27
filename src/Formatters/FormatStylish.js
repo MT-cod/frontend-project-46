@@ -9,7 +9,7 @@ function processing(diffMap) {
     switch (node.diffStatus) {
       case 'updated':
         if (_.has(node, 'nodeChild')) {
-          nodeData['  ' + node.nodeKey] = processing(node.nodeChild);
+          nodeData[' ' + node.nodeKey] = processing(node.nodeChild);
           break;
         }
         nodeData['- ' + node.nodeKey] = node.nodeValueOld;
