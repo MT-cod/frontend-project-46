@@ -24,7 +24,7 @@ export function genDiffFromObjs(obj1, obj2) {
         nodeKey,
         nodeValueOld: obj1[nodeKey],
         nodeValueNew: obj2[nodeKey],
-        diffStatus: 'updated'
+        diffStatus: 'updated',
       };
     }
     return merged.nodeKey;

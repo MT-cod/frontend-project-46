@@ -1,47 +1,44 @@
 import _ from 'lodash';
 
-function addSpacesIfValIsArr(val) {
+function checkType(val, spaces) {
   if (typeof val === 'object' && val !== null) {
-    return Object.keys(val).reduce((res, key) => {
-      if (typeof val[key] === 'object' && val[key] !== null) {
-        res[`  ${key}`] = addSpacesIfValIsArr(val[key]);
-      } else {
-        res[`  ${key}`] = val[key];
-      }
-      return res;
-    }, {});
+    return addSpacesIfValIsArr(val, spaces).slice(0, -1);
   }
   return val;
 }
 
-function processing(diffMap) {
-  return diffMap.reduce((nodeData, node) => {
+function addSpacesIfValIsArr(val, spaces) {
+  const spacesForIter = `${spaces}    `;
+  const obj = Object.keys(val).reduce((res, key) => {
+    if (typeof val[key] === 'object' && val[key] !== null) {
+      return `${res}${spacesForIter}    ${key}: ${addSpacesIfValIsArr(val[key], spacesForIter)}`;
+    }
+    return `${res}${spacesForIter}    ${key}: ${val[key]}\n`;
+  }, '');
+  return `{\n${obj}${spacesForIter}}\n`;
+}
+
+function processing(diffMap, spaces = '') {
+  return diffMap.reduce((res, node) => {
+    if (_.has(node, 'nodeChild')) {
+      const spacesForIter = `${spaces}    `;
+      return `${res}${spaces}    ${node.nodeKey}: `
+        + `{\n${processing(node.nodeChild, spacesForIter)}${spaces}    }\n`;
+    }
     switch (node.diffStatus) {
       case 'updated':
-        if (_.has(node, 'nodeChild')) {
-          nodeData[`  ${node.nodeKey}`] = processing(node.nodeChild);
-          break;
-        }
-        nodeData[`- ${node.nodeKey}`] = addSpacesIfValIsArr(node.nodeValueOld);
-        nodeData[`+ ${node.nodeKey}`] = addSpacesIfValIsArr(node.nodeValueNew);
-        break;
+        return `${res}${spaces}  - ${node.nodeKey}: ${checkType(node.nodeValueOld, spaces)}\n`
+        + `${spaces}  + ${node.nodeKey}: ${checkType(node.nodeValueNew, spaces)}\n`;
       case 'deleted':
-        nodeData[`- ${node.nodeKey}`] = addSpacesIfValIsArr(node.nodeValue);
-        break;
+        return `${res}${spaces}  - ${node.nodeKey}: ${checkType(node.nodeValue, spaces)}\n`;
       case 'added':
-        nodeData[`+ ${node.nodeKey}`] = addSpacesIfValIsArr(node.nodeValue);
-        break;
+        return `${res}${spaces}  + ${node.nodeKey}: ${checkType(node.nodeValue, spaces)}\n`;
       default:
-        nodeData[`  ${node.nodeKey}`] = addSpacesIfValIsArr(node.nodeValue);
+        return `${res}${spaces}    ${node.nodeKey}: ${checkType(node.nodeValue, spaces)}\n`;
     }
-    return nodeData;
-  }, {});
+  }, '');
 }
 
 export default function toStylishFormat(diffMap) {
-  return JSON
-    .stringify(processing(diffMap), null, 4)
-    .replaceAll('  "', '')
-    .replaceAll('"', '')
-    .replaceAll(',', '');
+  return `{\n${processing(diffMap).slice(0, -1)}\n}`;
 }
