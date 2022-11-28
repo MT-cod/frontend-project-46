@@ -1,12 +1,5 @@
 import _ from 'lodash';
 
-function checkType(val, spaces) {
-  if (typeof val === 'object' && val !== null) {
-    return addSpacesIfValIsArr(val, spaces).slice(0, -1);
-  }
-  return val;
-}
-
 function addSpacesIfValIsArr(val, spaces) {
   const spacesForIter = `${spaces}    `;
   const obj = Object.keys(val).reduce((res, key) => {
@@ -16,6 +9,13 @@ function addSpacesIfValIsArr(val, spaces) {
     return `${res}${spacesForIter}    ${key}: ${val[key]}\n`;
   }, '');
   return `{\n${obj}${spacesForIter}}\n`;
+}
+
+function checkType(val, spaces) {
+  if (typeof val === 'object' && val !== null) {
+    return addSpacesIfValIsArr(val, spaces).slice(0, -1);
+  }
+  return val;
 }
 
 function processing(diffMap, spaces = '') {

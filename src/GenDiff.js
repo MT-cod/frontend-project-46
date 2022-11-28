@@ -35,7 +35,6 @@ export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish')
   const obj1 = getObjFromFile(pathToFile1);
   const obj2 = getObjFromFile(pathToFile2);
   const diffMap = genDiffFromObjs(obj1, obj2);
-  // console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
 
   return toFormat(Object.values(diffMap), outFormat);
 }
