@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
-import toFormat from "../src/Formatters/index.js";
 import fs from 'fs';
 import path from 'path';
+import toFormat from '../src/Formatters/index.js';
 
 const diffMap = JSON.parse(fs.readFileSync(path.resolve('__tests__/__fixtures__/diffMap')));
 const resToStylishFormat = fs

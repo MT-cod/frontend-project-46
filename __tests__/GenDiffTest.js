@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
-import genDiff, { genDiffFromObjs } from '../src/GenDiff.js';
 import fs from 'fs';
 import path from 'path';
+import genDiff, { genDiffFromObjs } from '../src/GenDiff.js';
 
 const resGenDiff = fs
   .readFileSync(path.resolve('__tests__/__fixtures__/resToStylishFormat'))
@@ -15,11 +15,9 @@ const file2 = JSON.parse(fs.readFileSync(path.resolve('__tests__/__fixtures__/re
 const resGenDiffFromObjs = JSON.parse(fs.readFileSync(path.resolve('__tests__/__fixtures__/diffMap')));
 
 test('genDiff()', () => {
-  //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
   expect(genDiff(pathToFile1, pathToFile2, format)).toEqual(resGenDiff);
 });
 
 test('genDiffFromObjs()', () => {
-  //expect(genDiff(athToFile1, pathToFile2, outFormat)).toMatchObject(res1);
   expect(genDiffFromObjs(file1, file2)).toMatchObject(resGenDiffFromObjs);
 });
