@@ -4,13 +4,11 @@ import toJsonFormat from './FormatJson.js';
 
 export default function toFormat(diffMapValues, outFormat) {
   switch (outFormat) {
-    case 'stylish':
-      return toStylishFormat(diffMapValues);
     case 'plain':
       return toPlainFormat(diffMapValues);
     case 'json':
       return toJsonFormat(diffMapValues);
     default:
-      return '';
+      return toStylishFormat(diffMapValues);
   }
 }
