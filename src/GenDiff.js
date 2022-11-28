@@ -8,20 +8,21 @@ export function genDiffFromObjs(obj1, obj2) {
 
   return sortedKeys.map((nodeKey) => {
     if (!_.has(obj1, nodeKey) && _.has(obj2, nodeKey)) {
-      return { nodeKey: nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' };
+      return { nodeKey, nodeValue: obj2[nodeKey], diffStatus: 'added' };
     }
     if (_.has(obj1, nodeKey) && !_.has(obj2, nodeKey)) {
-      return { nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' };
+      return { nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' };
     }
     if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && _.isEqual(obj1[nodeKey], obj2[nodeKey])) {
-      return { nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged' };
+      return { nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged' };
     }
     if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && !_.isEqual(obj1[nodeKey], obj2[nodeKey])) {
       if (typeof obj1[nodeKey] === 'object' && typeof obj2[nodeKey] === 'object') {
-        return { nodeKey: nodeKey, nodeChild: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' };
+        return { nodeKey, nodeChild: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' };
       }
-      return { nodeKey: nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' };
+      return { nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' };
     }
+    return merged.nodeKey;
   });
 }
 
