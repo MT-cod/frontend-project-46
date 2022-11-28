@@ -20,7 +20,12 @@ export function genDiffFromObjs(obj1, obj2) {
       if (typeof obj1[nodeKey] === 'object' && typeof obj2[nodeKey] === 'object') {
         return { nodeKey, nodeChild: genDiffFromObjs(obj1[nodeKey], obj2[nodeKey]), diffStatus: 'updated' };
       }
-      return { nodeKey, nodeValueOld: obj1[nodeKey], nodeValueNew: obj2[nodeKey], diffStatus: 'updated' };
+      return {
+        nodeKey,
+        nodeValueOld: obj1[nodeKey],
+        nodeValueNew: obj2[nodeKey],
+        diffStatus: 'updated'
+      };
     }
     return merged.nodeKey;
   });
