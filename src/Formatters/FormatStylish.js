@@ -41,7 +41,7 @@ function processing(diffMap) {
 export default function toStylishFormat(diffMap) {
   return JSON
     .stringify(processing(diffMap), null, 4)
-    .replaceAll('  \"', '')
-    .replaceAll('\"', '')
-    .replaceAll('\,', '');
+    .replaceAll('  "', '')
+    .replaceAll('"', '')
+    .replaceAll(',', '');
 }
