@@ -7,10 +7,10 @@ export default function getObjFromFile(pathToFile) {
   const extOfFile = path.extname(pathToFileStr);
 
   switch (extOfFile) {
-    case '.json':
-      return JSON.parse(fs.readFileSync(pathToFileStr));
     case '.yaml':
     case '.yml':
       return yaml.load(fs.readFileSync(pathToFileStr));
+    default:
+      return JSON.parse(fs.readFileSync(pathToFileStr));
   }
 }

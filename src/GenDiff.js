@@ -1,15 +1,6 @@
 import _ from 'lodash';
-import getObjFromFile from './Parsers.js'
+import getObjFromFile from './Parsers.js';
 import toFormat from './Formatters/index.js';
-
-export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish') {
-  const obj1 = getObjFromFile(pathToFile1);
-  const obj2 = getObjFromFile(pathToFile2);
-  const diffMap = genDiffFromObjs(obj1, obj2);
-  //console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
-
-  return toFormat(Object.values(diffMap), outFormat);
-}
 
 export function genDiffFromObjs(obj1, obj2) {
   const merged = _.merge(_.cloneDeep(obj1), _.cloneDeep(obj2));
@@ -23,7 +14,7 @@ export function genDiffFromObjs(obj1, obj2) {
       nodeData.push({ nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'deleted' });
     }
     if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && _.isEqual(obj1[nodeKey], obj2[nodeKey])) {
-      nodeData.push({nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged'});
+      nodeData.push({ nodeKey: nodeKey, nodeValue: obj1[nodeKey], diffStatus: 'unchanged' });
     }
     if (_.has(obj1, nodeKey) && _.has(obj2, nodeKey) && !_.isEqual(obj1[nodeKey], obj2[nodeKey])) {
       if (typeof obj1[nodeKey] === 'object' && typeof obj2[nodeKey] === 'object') {
@@ -34,4 +25,13 @@ export function genDiffFromObjs(obj1, obj2) {
     }
     return nodeData;
   }, []);
+}
+
+export default function genDiff(pathToFile1, pathToFile2, outFormat = 'stylish') {
+  const obj1 = getObjFromFile(pathToFile1);
+  const obj2 = getObjFromFile(pathToFile2);
+  const diffMap = genDiffFromObjs(obj1, obj2);
+  // console.log('diffMapdiffMapdiffMapdiffMap' + JSON.stringify(diffMap, null, '\t'));
+
+  return toFormat(Object.values(diffMap), outFormat);
 }
